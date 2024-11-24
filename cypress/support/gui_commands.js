@@ -21,3 +21,16 @@ Cypress.Commands.add('logout',() => {
   }
   logout()
 })
+Cypress.Commands.add('gui_createProject',() => {
+  const gui_createProject = () => {
+    cy.visit('projects/new')
+    cy.get('[data-qa-panel-name="blank_project"]').click()
+    cy.get('[data-testid="active-panel-template"]').should('be.visible')
+    cy.get('#project_name').type("Felipe")
+    cy.get('#blank-project-name > .gl-flex > .gl-pr-0 > .input-group > .gl-w-full > [data-testid="select-namespace-dropdown"] > [data-testid="base-dropdown-toggle"] > .btn').click()
+    cy.get('[data-testid="listbox-item-gid://gitlab/Namespaces::UserNamespace/1"] > .gl-new-dropdown-item-content > .gl-new-dropdown-item-text-wrapper').click()
+    cy.get('#new_project > [data-testid="project-create-button"]').click()
+
+  }
+  gui_createProject()
+})
