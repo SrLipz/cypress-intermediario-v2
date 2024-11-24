@@ -4,7 +4,7 @@ describe('Login', () => {
   });
   
   it('successfully', () => {
-    cy.get('[data-testid="user-avatar-content"]').should('exist');
+    cy.get('.qa-user-avatar').should('be.visible')
   })
   
 })

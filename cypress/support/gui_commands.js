@@ -1,36 +1,26 @@
 Cypress.Commands.add('login', (
-    user = Cypress.env('user_name'),
-    password = Cypress.env('user_password'),
-  ) => {
-    const login = () => {
-      cy.visit('/users/sign_in')
-  
-      cy.get("#user_login").type(user)
-      cy.get("#user_password").type(password, { log: false })
-      cy.get("[data-testid='sign-in-button']").click()
-    }
-  
-    login()
-  })
-Cypress.Commands.add('logout',() => {
-  const logout = () => {
-  cy.get('[data-testid="user-avatar-content"]').should('exist');
-    cy.get('[data-testid="user-avatar-content"]').click()
-    cy.get('[data-testid="sign-out-link"]').click()
-    cy.get('.mb-3').should('be.visible')
-  }
-  logout()
-})
-Cypress.Commands.add('gui_createProject',() => {
-  const gui_createProject = () => {
-    cy.visit('projects/new')
-    cy.get('[data-qa-panel-name="blank_project"]').click()
-    cy.get('[data-testid="active-panel-template"]').should('be.visible')
-    cy.get('#project_name').type("Felipe")
-    cy.get('#blank-project-name > .gl-flex > .gl-pr-0 > .input-group > .gl-w-full > [data-testid="select-namespace-dropdown"] > [data-testid="base-dropdown-toggle"] > .btn').click()
-    cy.get('[data-testid="listbox-item-gid://gitlab/Namespaces::UserNamespace/1"] > .gl-new-dropdown-item-content > .gl-new-dropdown-item-text-wrapper').click()
-    cy.get('#new_project > [data-testid="project-create-button"]').click()
+  user = Cypress.env('user_name'),
+  password = Cypress.env('user_password'),
+) => {
+  const login = () => {
+    cy.visit('/users/sign_in')
 
+    cy.get("[data-qa-selector='login_field']").type(user)
+    cy.get("[data-qa-selector='password_field']").type(password, { log: false })
+    cy.get("[data-qa-selector='sign_in_button']").click()
   }
-  gui_createProject()
+
+  login()
+})
+Cypress.Commands.add('logout', () => {
+  cy.get('.qa-user-avatar').click()
+  cy.contains('Sign out').click()
+})
+Cypress.Commands.add('gui_createProject', project => {
+  cy.visit('/projects/new')
+
+  cy.get('#project_name').type(project.name)
+  cy.get('#project_description').type(project.description)
+  cy.get('.qa-initialize-with-readme-checkbox').check()
+  cy.contains('Create project').click()
 })
