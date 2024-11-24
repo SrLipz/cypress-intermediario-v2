@@ -1,0 +1,15 @@
+Cypress.Commands.add('login', (
+    user = Cypress.env('user_name'),
+    password = Cypress.env('user_password'),
+  ) => {
+    const login = () => {
+      cy.visit('/users/sign_in')
+  
+      cy.get("#user_login").type(user)
+      cy.get("#user_password").type(password, { log: false })
+      cy.get("[data-testid='sign-in-button']").click()
+    }
+  
+    login()
+  })
+  
