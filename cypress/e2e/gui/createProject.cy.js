@@ -6,7 +6,7 @@ describe('Create Project', () => {
   })
 
   it('successfully', () => {
-    const project = {
+    const project = { // Criando um nome e descrição Fakes 
       name: `project-${faker.datatype.uuid()}`,
       description: faker.random.words(5)
     }
