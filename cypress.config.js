@@ -6,6 +6,10 @@ module.exports = defineConfig({
   e2e: {
     experimentalSessionAndOrigin: true,
     baseUrl: 'http://localhost',
+    env: {
+      hideCredentials: true,
+      requestMode: true,
+    },
   },
   fixturesFolder: false,
   video: false,
